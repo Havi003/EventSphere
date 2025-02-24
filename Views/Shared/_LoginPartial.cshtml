@@ -1,0 +1,16 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Eventsphere.Areas.Identity.Data
+
+@inject SignInManager<EventsphereUser> SignInManager
+@inject UserManager<EventsphereUser> UserManager
+
+<ul class="navbar-nav">
+@if (SignInManager.IsSignedIn(User))
+{
+    <li class="nav-item">
+            <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @ViewData["FirstName"]!</a>
+    </li>
+ 
+}
+
+</ul>

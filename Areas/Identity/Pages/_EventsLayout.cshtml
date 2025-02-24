@@ -1,0 +1,52 @@
+﻿@{
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+<div class="d-flex vh-100 w-100 m-0 p-0">
+    <!-- Left Section (Form Content) -->
+    <div class="w-50 d-flex flex-column justify-content-center p-5"
+         style="background: linear-gradient(to bottom, #FFF7D9, #6AD3F3); width: 50vw;">
+        <div class="w-100">
+            @RenderBody()
+        </div>
+    </div>
+
+    <!-- Right Section (Branding/Image) -->
+    <div class="w-50 d-flex align-items-center justify-content-center bg-light">
+        <img src="~/images/logo.png" alt="Event Sphere Logo" class="img-fluid" style="max-width: 80%;">
+    </div>
+</div>
+
+<style>
+/* Remove unwanted body margins */
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Remove Bootstrap's default container spacing */
+.container,
+.container-fluid,
+.row,
+.col-md-6,
+.col-sm-6 {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+}
+
+/* Force left section to fully extend */
+.left-section {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    width: 50% !important;
+    flex: 1;
+}
+
+
+@section Scripts {
+    @await RenderSectionAsync("Scripts", required: false)
+}
