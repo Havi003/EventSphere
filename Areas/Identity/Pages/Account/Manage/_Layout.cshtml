@@ -1,5 +1,10 @@
-﻿@{
-    if (ViewData.TryGetValue("ParentLayout", out var parentLayout) && parentLayout !=  null)
+﻿@using Microsoft.AspNetCore.Identity
+@using Eventsphere.Models
+@inject UserManager<EventsphereUser> UserManager
+@inject SignInManager<EventsphereUser> SignInManager
+
+@{
+    if (ViewData.TryGetValue("ParentLayout", out var parentLayout) && parentLayout != null)
     {
         Layout = parentLayout.ToString();
     }
@@ -7,24 +12,52 @@
     {
         Layout = "/Areas/Identity/Pages/_Layout.cshtml";
     }
+
+    var user = UserManager.GetUserAsync(User).Result;
 }
 
-<h1>Manage your account</h1>
-
-<div>
-    <h2>Change your account settings</h2>
-    <hr />
+<div class="container mt-5">
     <div class="row">
+        <!-- Sidebar -->
         <div class="col-md-3">
-            <partial name="_ManageNav" />
+            <div class="card profile-sidebar p-3 shadow">
+                <div class="text-center">
+                    <img src="path/to/profile-picture.jpg" class="rounded-circle img-fluid border"
+                        style="width: 100px; height: 100px;" alt="Profile">
+                </div>
+                <div class="text-center mt-3">
+                    <h5 class="fw-bold">@user.UserName</h5>
+                    <p class="text-muted">@user.FirstName @user.LastName</p>
+                    <p class="text-muted">@user.Email</p>
+                </div>
+                <hr>
+            </div>
         </div>
+
+        <!-- Profile Content -->
         <div class="col-md-9">
-            @RenderBody()
+            <div class="card shadow p-4">
+                <div class="text-center mb-3">
+                    <img src="path/to/profile-picture.jpg" class="rounded-circle img-fluid border"
+                        style="width: 120px; height: 120px;" alt="Profile">
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>First Name:</strong> @user.FirstName</p>
+                        <p><strong>Username:</strong> <span class="fw-bold">@user.UserName</span></p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Last Name:</strong> @user.LastName</p>
+                        <p><strong>Email:</strong> @user.Email</p>
+                    </div>
+                </div>
+                <div class="text-end mt-3">
+                    <button class="btn btn-success">Update Profile</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-
-
 
 @section Scripts {
     @RenderSection("Scripts", required: false)
