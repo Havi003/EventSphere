@@ -1,4 +1,5 @@
 ﻿using Eventsphere.Areas.Identity.Data;
+using Eventsphere.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ public class EventsphereDBContext : IdentityDbContext<EventsphereUser>
     public EventsphereDBContext(DbContextOptions<EventsphereDBContext> options)
         : base(options)
     {
+        public DbSet<HelpCenter> HelpCenter { get; set; } //Adds help center table
     }
 
     protected override void OnModelCreating(ModelBuilder builder)
