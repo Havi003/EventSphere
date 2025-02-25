@@ -23,7 +23,7 @@
             <div class="card profile-sidebar p-3 shadow">
                 <div class="text-center">
                     <img src="path/to/profile-picture.jpg" class="rounded-circle img-fluid border"
-                        style="width: 100px; height: 100px;" alt="Profile">
+                         style="width: 100px; height: 100px;" alt="Profile">
                 </div>
                 <div class="text-center mt-3">
                     <h5 class="fw-bold">@user.UserName</h5>
@@ -39,12 +39,12 @@
             <div class="card shadow p-4">
                 <div class="text-center mb-3">
                     <img src="path/to/profile-picture.jpg" class="rounded-circle img-fluid border"
-                        style="width: 120px; height: 120px;" alt="Profile">
+                         style="width: 120px; height: 120px;" alt="Profile">
                 </div>
                 <div class="row">
                     <div class="col-md-6">
                         <p><strong>First Name:</strong> @user.FirstName</p>
-                        <p><strong>Username:</strong> <span class="fw-bold">@user.UserName</span></p>
+                        <p><strong>Username:</strong> @user.UserName</p>
                     </div>
                     <div class="col-md-6">
                         <p><strong>Last Name:</strong> @user.LastName</p>
@@ -52,7 +52,8 @@
                     </div>
                 </div>
                 <div class="text-end mt-3">
-                    <button class="btn btn-success">Update Profile</button>
+                    <a asp-page="/Account/Manage/EditProfile" class="btn btn-success">Update Profile</a>
+
                 </div>
             </div>
         </div>
