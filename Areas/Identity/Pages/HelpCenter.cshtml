@@ -1,5 +1,5 @@
 ﻿@page
-@model Eventsphere.Areas.Identity.Pages.HelpCenterModel
+@model Eventsphere.Areas.Identity.Pages.HelpCenterModel;
 @{
 	ViewData["Title"] = "Help Center";
 	Layout = "/Views/Shared/_Layout.cshtml";
@@ -45,7 +45,7 @@
 
 	<div class="faq-container">
 		<p><strong>FREQUENTLY ASKED QUESTIONS</strong></p>
-
+		<!--
 		<div class="faq">
 			<p class="question">
 				What is Event Sphere and how does it work?
@@ -79,6 +79,25 @@
 					on your location, interests, and event type.
 				</strong>
 			</p>
-		</div>
+		</div>-->
+		@if(Model.HelpCenterList != null && Model.HelpCenterList.Any()){
+			@foreach (var item in Model.HelpCenterList)
+			{
+				<div class="faq">
+					<p class="question">
+						@item.question
+					</p>
+					<p class="answer">
+						<strong>
+							@item.answer
+						</strong>
+					</p>
+				</div>
+			}
+		}else
+		{
+			<p>NO FAQ</p>
+		}
+
 	</div>
 </div>

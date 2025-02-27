@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Eventsphere.Areas.Identity.Data;
 using Microsoft.Extensions.DependencyInjection;
-using Eventsphere.Data;
+using Eventsphere.Areas.Identity.Data;
 namespace Eventsphere
 {
     public class Program
@@ -18,8 +18,8 @@ namespace Eventsphere
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-            builder.Services.AddDbContext<EventsphereContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("EventsphereContext") ?? throw new InvalidOperationException("Connection string 'EventsphereContext' not found.")));
+            builder.Services.AddDbContext<EventsphereDBContext>(options =>
+                options.UseSqlServer(connectionString));
             builder.Services.AddRazorPages();
 
             builder.Services.Configure<IdentityOptions>(options =>

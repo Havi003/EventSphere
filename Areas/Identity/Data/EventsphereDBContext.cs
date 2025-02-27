@@ -11,8 +11,9 @@ public class EventsphereDBContext : IdentityDbContext<EventsphereUser>
     public EventsphereDBContext(DbContextOptions<EventsphereDBContext> options)
         : base(options)
     {
-        public DbSet<HelpCenter> HelpCenter { get; set; } //Adds help center table
     }
+
+    public DbSet<Eventsphere.Models.HelpCenter> HelpCenter { get; set; } //Adds help center table
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
