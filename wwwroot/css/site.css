@@ -27,3 +27,13 @@ button {
     border—radius: 8px;
     width: 100%;
 }
+
+.footer-links{
+    display: flex;
+    align-items: center;
+}
+
+.footer-links a{
+    text-decoration: none;
+    margin-right: 10px;
+}
