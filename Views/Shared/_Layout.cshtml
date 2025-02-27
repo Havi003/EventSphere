@@ -56,8 +56,8 @@
                     </li>
 
                             <li class="nav-item">
-                                <a asp-area="" asp-controller="Home" asp-action="Index" class="d-flex justify-content-center align-items-center bg-light rounded-circle overflow-hidden" style="width: 100px; height: 100px;">
-                                    <img src="~/images/logo.jpg" class="w-75 rounded-circle" alt="Logo">
+                                <a asp-area="" asp-controller="Home" asp-action="Index" class="d-flex justify-content-center align-items-center overflow-hidden">
+                                    <img src="~/images/Logo.png" height="100" alt="Logo">
                                 </a>
                             </li>
 
@@ -114,9 +114,10 @@
             </div>
 
             <div class="footer-links">
-                <a class="text-dark" style="text-decoration: none;" asp-area="" asp-controller="Users" asp-action="Users">Users</a>
-                <a class="text-dark" style="text-decoration: none; margin-left: 10px;" asp-area="" asp-controller="Home" asp-action="Events">Events</a>
-                <a class="text-dark" style="text-decoration: none; margin-left: 10px;" asp-area="" asp-controller="Home" asp-action="TermsandPolicy">Terms and Policy</a>
+                <a class=" text-dark" asp-area="Identity" asp-controller="Home" asp-action="Index">Home</a>
+                <a class=" text-dark" asp-area="Identity" asp-page="/FormEvent">Form Event</a>
+                <partial name="_LoginPartial.cshtml" />
+                <a class=" text-dark" asp-area="Identity" asp-page="/HelpCenter">Help Center</a>
             </div>
         </footer>
     }

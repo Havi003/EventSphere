@@ -1,11 +1,103 @@
 ﻿@page
-@model Eventsphere.Areas.Identity.Pages.HelpCenterModel
+@model Eventsphere.Areas.Identity.Pages.HelpCenterModel;
 @{
 	ViewData["Title"] = "Help Center";
 	Layout = "/Views/Shared/_Layout.cshtml";
 }
-<div class="text-black">
-	<h2>
-		This is the help center
-	</h2>
+
+<link rel="stylesheet" href="~/css/HelpCenter.css" />
+
+<div class="main-container">
+	
+	<div class="socials-container">
+		<p><strong>ENGAGE WITH US</strong></p>
+
+		<div class="phone-and-email-container">
+			<div class="phone">
+				<a href="tel:070 000 000">
+					<img src="~/images/phone-icon.svg" alt="phone-icon" />
+					<span link-text>0700 000 000</span>
+				</a>
+			</div>
+
+			<div class="email">
+				<a href="mailto:eventsphere@gmail.com">
+					<img src="~/images/email-icon.svg" alt="email-icon" />
+					eventsphere@gmail.com
+				</a>
+			</div>
+		</div>
+
+		<div class="icons-container">
+			<a href="">
+				<img src="~/images/ig-icon.svg" />
+			</a>
+			<a href="">
+				<img src="~/images/x-icon.svg"/>
+			</a>
+			<a href="">
+				<img src="~/images/whatsapp-icon.svg" />
+			</a>
+		</div>
+
+		
+	</div>
+
+	<div class="faq-container">
+		<p><strong>FREQUENTLY ASKED QUESTIONS</strong></p>
+		<!--
+		<div class="faq">
+			<p class="question">
+				What is Event Sphere and how does it work?
+			</p>
+			<p class="answer"><strong>
+					EventSphere is a platform that allows users to discover, book, and 
+					attend local events while enabling organizers to create and manage 
+					their events effortlessly.
+			</strong></p>
+		</div>
+
+		<div class="faq">
+			<p class="question">
+				Is the app free to use?
+			</p>
+			<p class="answer">
+				<strong>
+					Yes, the app is free to download and use. However, some events may 
+					require ticket purchases or paid reservations.
+				</strong>
+			</p>
+		</div>
+
+		<div class="faq">
+			<p class="question">
+				How can I search for events near me?
+			</p>
+			<p class="answer">
+				<strong>
+					You can use the search bar or browse categories based 
+					on your location, interests, and event type.
+				</strong>
+			</p>
+		</div>-->
+		@if(Model.HelpCenterList != null && Model.HelpCenterList.Any()){
+			@foreach (var item in Model.HelpCenterList)
+			{
+				<div class="faq">
+					<p class="question">
+						@item.question
+					</p>
+					<p class="answer">
+						<strong>
+							@item.answer
+						</strong>
+					</p>
+				</div>
+			}
+		}else
+		{
+			<p>NO FAQ</p>
+		}
+
+	</div>
 </div>
