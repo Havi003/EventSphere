@@ -13,7 +13,9 @@ public class EventsphereDBContext : IdentityDbContext<EventsphereUser>
     {
     }
 
-    public DbSet<Eventsphere.Models.HelpCenter> HelpCenter { get; set; } //Adds help center table
+    public DbSet<HelpCenter> HelpCenter { get; set; } //Adds help center table
+
+    public DbSet<FormEvent> EventsFormed { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
