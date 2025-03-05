@@ -1,0 +1,72 @@
+﻿@page
+@model Eventsphere.Areas.Identity.Pages.Form_Events.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FormEvent[0].EventName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FormEvent[0].Location)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FormEvent[0].Poster)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FormEvent[0].EventDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FormEvent[0].StartTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FormEvent[0].EndTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FormEvent[0].About)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.FormEvent) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.EventName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location)
+            </td>
+            <td>
+                <img src="data:image/jpg;base64, @item.Poster" width="120px" height="120px"/>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EventDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.About)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

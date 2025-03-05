@@ -1,0 +1,121 @@
+﻿@page
+@model Eventsphere.Areas.Identity.Pages.Form_Events.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<link rel="stylesheet" href="~/css/site.css" />
+<link rel="stylesheet" href="~/css/FormEvent.css" />
+
+<body>
+
+	<div class="main-container">
+
+		<p><i><center>Welcome to the sphere of events! Create yours now.</center></i></p>
+
+		<form method="post" enctype="multipart/form-data">
+			<div class="rows-container">
+
+				<div class="event-name-container">
+					<label>Event Name: </label><br>
+					<input asp-for="eventData.EventName" type="text" id="textbox" required />
+					<span asp-validation-for="eventData.EventName" class="text-danger"></span>
+				</div>
+
+				<div class="event-location-container">
+					<label>Event Location: </label><br>
+					<input asp-for="eventData.Location" type="text" id="textbox" required />
+					<span asp-validation-for="eventData.Location" class="text-danger"></span>
+				</div>
+
+			</div>
+
+			<div class="rows-container">
+
+				<div class="event-image-container">
+					<label>Event Image:</label><br />
+					<input asp-for="eventData.PosterImage" type="file" class="image-date-box" required />
+					<span asp-validation-for="eventData.PosterImage" class="text-danger"></span>
+				</div>
+
+				<div class="event-date-container">
+					<label>Event Date:</label><br />
+					<input asp-for="eventData.EventDate" type="date" class="image-date-box" required />
+					<span asp-validation-for="eventData.EventDate" class="text-danger"></span>
+				</div>
+
+			</div>
+
+			<div class="rows-container">
+
+				<div class="event-start-container">
+					<label>Event Starts At:</label><br />
+					<input asp-for="eventData.StartTime" type="time" id="timebox" required />
+					<span asp-validation-for="eventData.StartTime" class="text-danger"></span>
+				</div>
+
+				<div class="event-end-container">
+					<label>Event Ends At:</label><br />
+					<input asp-for="eventData.EndTime" type="time" id="timebox" required />
+					<span asp-validation-for="eventData.EndTime" class="text-danger"></span>
+				</div>
+
+			</div>
+
+			<label>What is this event about: </label><br>
+			<textarea asp-for="eventData.About" rows="3" maxlength="300" placeholder="Tell us more about the event..." required></textarea>
+			<span asp-validation-for="eventData.About" class="text-danger"></span>
+
+			<div class="ticket-category-container">
+				<label>Categories of Tickets</label>
+
+				<table id="tickets-table">
+					<tr>
+						<th>Ticket Category</th>
+						<th>Amount(Kshs.)</th>
+					</tr>
+
+					<tr>
+						<td>
+							<input type="text" name="ticket-category" />
+						</td>
+						<td>
+							<input type="number" name="amount" />
+						</td>
+					</tr>
+
+				</table>
+
+				<div class="addrow-btn-container">
+					<button onclick="addRow()" class="addrow-btn">Add another category</button>
+				</div>
+
+				<p><i><center>*If the event is free, leave the categories empty.</center></i></p>
+			</div>
+
+			<div class="confirm-btn">
+				<button type="submit" value="Create"> CONFIRM DETAILS</button>
+			</div>
+		</form>
+
+	</div>
+
+	<script>
+		function addRow() {
+			let table = document.getElementById("tickets-table");
+			let row = document.createElement("tr");
+
+			row.innerHTML = `
+				<td>
+					<input type="text" id="ticket-category" />
+				</td>
+				<td>
+					<input type="number" id="amount" />
+				</td>
+			`;
+
+			table.appendChild(row);
+		}
+	</script>
+</body>
