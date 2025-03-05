@@ -9,6 +9,11 @@
     ViewData["Title"] = "Edit Profile";
     
 }
+@{
+    @section Styles {
+        <link rel="stylesheet" href="~/css/EditProfile.css" asp-append-version="true" />
+    }
+}
 
 @{
     if (ViewData.TryGetValue("ParentLayout", out var parentLayout) && parentLayout != null)
@@ -23,7 +28,7 @@
     var user = UserManager.GetUserAsync(User).Result;
 }
 
-<div class="d-flex justify-content-center align-items-center vh-100 mt-3">
+<div class="d-flex justify-content-center align-items-center  mt-5">
     <div class="card p-4 shadow w-50">
         <!-- Adjust width as needed -->
         <h2 class="text-center mb-4">Edit Profile</h2>
