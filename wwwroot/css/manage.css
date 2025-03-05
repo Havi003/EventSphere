@@ -1,0 +1,33 @@
+﻿body {
+}
+
+.btn-success {
+    background: linear-gradient(to right, #00BF63 35%,#FF3131 100% ) !important; /* Change to your desired color */
+    border-color: linear-gradient(to right, #00BF63 35%,#FF3131 100% )#ff5733 !important;
+}
+
+    .btn-success:hover {
+        background: linear-gradient(to right, #00BF63 35%,#FF3131 100% ) !important; /* Slightly darker shade on hover */
+        border-color: linear-gradient(to right, #00BF63 35%,#FF3131 100% ) !important;
+    }
+
+.container {
+    background: #FFF7D9;
+    
+    padding: 20px 50px 20px 50px;
+    margin-bottom: 20px;
+}
+
+.card {
+    background: linear-gradient(to bottom, #FFF7D9, #6AD3F3);
+    padding: 20px;
+    width: 100%;
+    border-radius: 4px;
+    margin-bottom: 30px;
+    transition: transform 0.3s ease-in-out;
+}
+    .card:hover {
+        transform: scale(1.05);
+    }
+
+/* styles for the edit profile page */

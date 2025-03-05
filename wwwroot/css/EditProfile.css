@@ -1,0 +1,14 @@
+﻿body {
+}
+.card {
+    background: linear-gradient(to bottom, #FFF7D9, #6AD3F3);
+    padding: 20px;
+    width: 100%;
+    border-radius: 4px;
+    margin-bottom: 30px;
+    transition: transform 0.3s ease-in-out;
+}
+
+    .card:hover {
+        transform: scale(1.05);
+    }
