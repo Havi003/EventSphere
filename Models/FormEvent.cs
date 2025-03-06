@@ -29,5 +29,8 @@ namespace Eventsphere.Models
         public TimeSpan EndTime { get; set; }
 
         public string About { get; set; }
+
+        // Navigation property - An event can have multiple tickets
+        public List<TicketDetail> TicketDetails { get; set; } = new List<TicketDetail>();
     }
 }

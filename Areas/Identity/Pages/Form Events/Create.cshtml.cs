@@ -52,6 +52,31 @@ namespace Eventsphere.Areas.Identity.Pages.Form_Events
             _context.EventsFormed.Add(eventData);
             _context.SaveChanges();
 
+            // Retrieve ticket categories and amounts
+            var ticketCategories = Request.Form["ticketCategories[]"].ToArray();
+            var amounts = Request.Form["amounts[]"].ToArray();
+
+            if (ticketCategories.Length != amounts.Length || ticketCategories.Length == 0)
+            {
+                ModelState.AddModelError(string.Empty, "Please enter at least one ticket category.");
+                return Page();
+            }
+
+            // Create and save ticket details
+            List<TicketDetail> ticketDetails = new();
+            for (int i = 0; i < ticketCategories.Length; i++)
+            {
+                ticketDetails.Add(new TicketDetail
+                {
+                    Id = eventData.Id, // Link ticket to the created event
+                    Category = ticketCategories[i],
+                    Amount = decimal.Parse(amounts[i])
+                });
+            }
+
+            _context.TicketDetails.AddRange(ticketDetails);
+            _context.SaveChanges();
+
             return RedirectToPage("./Index");
         }
     }

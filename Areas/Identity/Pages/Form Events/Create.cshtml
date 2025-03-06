@@ -78,17 +78,17 @@
 
 					<tr>
 						<td>
-							<input type="text" name="ticket-category" />
+							<input type="text" name="ticketCategories[]" />
 						</td>
 						<td>
-							<input type="number" name="amount" />
+							<input type="number" name="amounts[]" />
 						</td>
 					</tr>
 
 				</table>
 
 				<div class="addrow-btn-container">
-					<button onclick="addRow()" class="addrow-btn">Add another category</button>
+					<button type="button" onclick="addRow()" class="addrow-btn">Add another category</button>
 				</div>
 
 				<p><i><center>*If the event is free, leave the categories empty.</center></i></p>
@@ -108,10 +108,10 @@
 
 			row.innerHTML = `
 				<td>
-					<input type="text" id="ticket-category" />
+					<input type="text" name="ticketCategories[]" />
 				</td>
 				<td>
-					<input type="number" id="amount" />
+					<input type="number" name="amounts[]" />
 				</td>
 			`;
 

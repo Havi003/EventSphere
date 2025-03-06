@@ -17,6 +17,8 @@ public class EventsphereDBContext : IdentityDbContext<EventsphereUser>
 
     public DbSet<FormEvent> EventsFormed { get; set; }
 
+    public DbSet<TicketDetail> TicketDetails { get; set; }
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
