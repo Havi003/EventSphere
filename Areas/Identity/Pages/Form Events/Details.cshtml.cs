@@ -21,8 +21,11 @@ namespace Eventsphere.Areas.Identity.Pages.Form_Events
 
         public FormEvent FormEvent { get; set; } = default!;
 
+        public List<TicketDetail> TicketDetails { get; set; } = new();
+
         public async Task<IActionResult> OnGetAsync(int? id)
         {
+
             if (id == null)
             {
                 return NotFound();
@@ -37,6 +40,12 @@ namespace Eventsphere.Areas.Identity.Pages.Form_Events
             {
                 FormEvent = formevent;
             }
+
+            // Get ticket categories for this event
+            TicketDetails = await _context.TicketDetails
+                .Where(t => t.Id == id)
+                .ToListAsync();
+
             return Page();
         }
     }

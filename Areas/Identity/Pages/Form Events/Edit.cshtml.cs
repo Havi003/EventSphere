@@ -23,6 +23,8 @@ namespace Eventsphere.Areas.Identity.Pages.Form_Events
         [BindProperty]
         public FormEvent FormEvent { get; set; } = default!;
 
+        public List<TicketDetail> TicketDetails { get; set; } = new();
+
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -36,6 +38,12 @@ namespace Eventsphere.Areas.Identity.Pages.Form_Events
                 return NotFound();
             }
             FormEvent = formevent;
+
+            // Get ticket categories for this event
+            TicketDetails = await _context.TicketDetails
+                .Where(t => t.Id == id)
+                .ToListAsync();
+
             return Page();
         }
 
@@ -52,6 +60,25 @@ namespace Eventsphere.Areas.Identity.Pages.Form_Events
 
             try
             {
+
+                byte[] bytes = null;
+
+                if (FormEvent.PosterImage != null)
+                {
+                    using (Stream fs = FormEvent.PosterImage.OpenReadStream())
+                    {
+                        using (BinaryReader br = new BinaryReader(fs))
+                        {
+                            bytes = br.ReadBytes((Int32)fs.Length);
+                        }
+                    }
+                    FormEvent.Poster = Convert.ToBase64String(bytes, 0, bytes.Length);
+                }
+
+                _context.EventsFormed.Add(FormEvent);
+                _context.SaveChanges();
+
+
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
