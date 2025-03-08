@@ -87,7 +87,7 @@ namespace Eventsphere.Areas.Identity.Pages.Form_Events
             _context.TicketDetails.AddRange(ticketDetails);
             _context.SaveChanges();
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("Details", new { id = eventData.Id });
         }
     }
 }

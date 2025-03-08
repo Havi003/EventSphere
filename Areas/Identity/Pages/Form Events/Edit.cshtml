@@ -112,8 +112,15 @@
 				<p><i><center>*If the event is free, leave the categories empty.</center></i></p>
 			</div>
 
-			<div class="confirm-btn">
-				<button type="submit" value="Save"> SAVE CHANGES</button>
+			<div class="buttons-below">
+				<div>
+					<button type="submit" value="Save"> SAVE CHANGES</button>
+				</div>
+				<div>
+					<a asp-area="Identity" asp-controller="Home" asp-action="Index">
+						<button type="button">GO BACK HOME</button>
+					</a>
+				</div>
 			</div>
 		</form>
 

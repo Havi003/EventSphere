@@ -49,37 +49,43 @@ namespace Eventsphere.Areas.Identity.Pages.Form_Events
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more information, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public IActionResult OnPost()
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            _context.Attach(FormEvent).State = EntityState.Modified;
+            var existingEvent = _context.EventsFormed.Find(FormEvent.Id);
+
+            if (existingEvent == null)
+            {
+                return NotFound();
+            }
+
+            // Update fields
+            existingEvent.EventName = FormEvent.EventName;
+            existingEvent.Location = FormEvent.Location;
+            existingEvent.EventDate = FormEvent.EventDate;
+            existingEvent.StartTime = FormEvent.StartTime;
+            existingEvent.EndTime = FormEvent.EndTime;
+            existingEvent.About = FormEvent.About;
 
             try
             {
-
-                byte[] bytes = null;
-
+                // If a new image is uploaded, update it
                 if (FormEvent.PosterImage != null)
                 {
-                    using (Stream fs = FormEvent.PosterImage.OpenReadStream())
+                    using (var memoryStream = new MemoryStream())
                     {
-                        using (BinaryReader br = new BinaryReader(fs))
-                        {
-                            bytes = br.ReadBytes((Int32)fs.Length);
-                        }
+                        FormEvent.PosterImage.CopyTo(memoryStream);
+                        byte[] imageBytes = memoryStream.ToArray();
+                        existingEvent.Poster = Convert.ToBase64String(imageBytes);
                     }
-                    FormEvent.Poster = Convert.ToBase64String(bytes, 0, bytes.Length);
                 }
 
-                _context.EventsFormed.Add(FormEvent);
+                _context.Update(existingEvent);
                 _context.SaveChanges();
-
-
-                await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -95,6 +101,7 @@ namespace Eventsphere.Areas.Identity.Pages.Form_Events
 
             return RedirectToPage("./Index");
         }
+
 
         private bool FormEventExists(int id)
         {
