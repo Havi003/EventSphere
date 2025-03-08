@@ -56,28 +56,38 @@ namespace Eventsphere.Areas.Identity.Pages.Form_Events
             var ticketCategories = Request.Form["ticketCategories[]"].ToArray();
             var amounts = Request.Form["amounts[]"].ToArray();
 
-            if (ticketCategories.Length != amounts.Length || ticketCategories.Length == 0)
-            {
-                ModelState.AddModelError(string.Empty, "Please enter at least one ticket category.");
-                return Page();
-            }
-
-            // Create and save ticket details
             List<TicketDetail> ticketDetails = new();
-            for (int i = 0; i < ticketCategories.Length; i++)
+
+            if (ticketCategories.Length == 0 || amounts.Length == 0)
             {
+                // No input provided → Store "FREE" ticket
                 ticketDetails.Add(new TicketDetail
                 {
-                    Id = eventData.Id, // Link ticket to the created event
-                    Category = ticketCategories[i],
-                    Amount = decimal.Parse(amounts[i])
+                    Id = eventData.Id,
+                    Category = "FREE",
+                    Amount = 0
                 });
+            }
+            else
+            {
+                for (int i = 0; i < ticketCategories.Length; i++)
+                {
+                    string category = string.IsNullOrWhiteSpace(ticketCategories[i]) ? "FREE" : ticketCategories[i];
+                    decimal amount = string.IsNullOrWhiteSpace(amounts[i]) ? 0 : decimal.Parse(amounts[i]);
+
+                    ticketDetails.Add(new TicketDetail
+                    {
+                        Id = eventData.Id,
+                        Category = category,
+                        Amount = amount
+                    });
+                }
             }
 
             _context.TicketDetails.AddRange(ticketDetails);
             _context.SaveChanges();
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("Details", new { id = eventData.Id });
         }
     }
 }

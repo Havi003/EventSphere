@@ -7,60 +7,144 @@
 
 <h1>Edit</h1>
 
-<h4>FormEvent</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="FormEvent.Id" />
-            <div class="form-group">
-                <span class="text-danger">*</span>
-                <label asp-for="FormEvent.EventName" class="control-label"></label>
-                <input asp-for="FormEvent.EventName" class="form-control" />
-                <span asp-validation-for="FormEvent.EventName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <span class="text-danger">*</span>
-                <label asp-for="FormEvent.Location" class="control-label"></label>
-                <input asp-for="FormEvent.Location" class="form-control" />
-                <span asp-validation-for="FormEvent.Location" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <span class="text-danger">*</span>
-                <label asp-for="FormEvent.Poster" class="control-label"></label>
-                <input asp-for="FormEvent.Poster" class="form-control" />
-                <span asp-validation-for="FormEvent.Poster" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <span class="text-danger">*</span>
-                <label asp-for="FormEvent.EventDate" class="control-label"></label>
-                <input asp-for="FormEvent.EventDate" class="form-control" />
-                <span asp-validation-for="FormEvent.EventDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <span class="text-danger">*</span>
-                <label asp-for="FormEvent.StartTime" class="control-label"></label>
-                <input asp-for="FormEvent.StartTime" class="form-control" />
-                <span asp-validation-for="FormEvent.StartTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <span class="text-danger">*</span>
-                <label asp-for="FormEvent.EndTime" class="control-label"></label>
-                <input asp-for="FormEvent.EndTime" class="form-control" />
-                <span asp-validation-for="FormEvent.EndTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FormEvent.About" class="control-label"></label>
-                <input asp-for="FormEvent.About" class="form-control" />
-                <span asp-validation-for="FormEvent.About" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
+<link rel="stylesheet" href="~/css/site.css" />
+<link rel="stylesheet" href="~/css/FormEvent.css" />
+
+<body>
+
+	<div class="main-container">
+
+		<p><i><center>Welcome to the sphere of events! Create yours now.</center></i></p>
+
+		<form method="post" enctype="multipart/form-data">
+			<div class="rows-container">
+
+				<div class="event-name-container">
+					<label>Event Name: </label><br>
+					<input asp-for="FormEvent.EventName" type="text" id="textbox" required />
+					<span asp-validation-for="FormEvent.EventName" class="text-danger"></span>
+				</div>
+
+				<div class="event-location-container">
+					<label>Event Location: </label><br>
+					<input asp-for="FormEvent.Location" type="text" id="textbox" required />
+					<span asp-validation-for="FormEvent.Location" class="text-danger"></span>
+				</div>
+
+			</div>
+
+			<div class="rows-container">
+
+				<div class="event-image-container">
+					<label>Event Image:</label><br />
+					<img src="data:image/jpg;base64, @Model.FormEvent.Poster" width="70px" height="70px" />
+					<input asp-for="FormEvent.PosterImage" type="file" class="image-date-box" required />
+					<span asp-validation-for="FormEvent.PosterImage" class="text-danger"></span>
+				</div>
+
+				<div class="event-date-container">
+					<label>Event Date:</label><br />
+					<input asp-for="FormEvent.EventDate" type="date" class="image-date-box" required />
+					<span asp-validation-for="FormEvent.EventDate" class="text-danger"></span>
+				</div>
+
+			</div>
+
+			<div class="rows-container">
+
+				<div class="event-start-container">
+					<label>Event Starts At:</label><br />
+					<input asp-for="FormEvent.StartTime" type="time" id="timebox" required />
+					<span asp-validation-for="FormEvent.StartTime" class="text-danger"></span>
+				</div>
+
+				<div class="event-end-container">
+					<label>Event Ends At:</label><br />
+					<input asp-for="FormEvent.EndTime" type="time" id="timebox" required />
+					<span asp-validation-for="FormEvent.EndTime" class="text-danger"></span>
+				</div>
+
+			</div>
+
+			<label>What is this event about: </label><br>
+			<textarea asp-for="FormEvent.About" rows="3" maxlength="300" placeholder="Tell us more about the event..." required></textarea>
+			<span asp-validation-for="FormEvent.About" class="text-danger"></span>
+
+			<div class="ticket-category-container">
+				<label>Categories of Tickets</label>
+
+				<table id="tickets-table">
+					<tr>
+						<th>Ticket Category</th>
+						<th>Amount(Kshs.)</th>
+					</tr>
+
+					@if (Model.TicketDetails.Any())
+					{
+						@foreach (var ticket in Model.TicketDetails)
+						{
+							<tr>
+								<td>
+									<input type="text" name="ticketCategories[]" value="@ticket.Category" />
+								</td>
+								<td>
+									<input type="number" name="amounts[]" value="@ticket.Amount" />
+								</td>
+							</tr>
+						}
+					}
+
+					<tr>
+						<td>
+							<input type="text" name="ticketCategories[]" />
+						</td>
+						<td>
+							<input type="number" name="amounts[]" />
+						</td>
+					</tr>
+
+				</table>
+
+				<div class="addrow-btn-container">
+					<button type="button" onclick="addRow()" class="addrow-btn">Add another category</button>
+				</div>
+
+				<p><i><center>*If the event is free, leave the categories empty.</center></i></p>
+			</div>
+
+			<div class="buttons-below">
+				<div>
+					<button type="submit" value="Save"> SAVE CHANGES</button>
+				</div>
+				<div>
+					<a asp-area="Identity" asp-controller="Home" asp-action="Index">
+						<button type="button">GO BACK HOME</button>
+					</a>
+				</div>
+			</div>
+		</form>
+
+	</div>
+
+	<script>
+		function addRow() {
+			let table = document.getElementById("tickets-table");
+			let row = document.createElement("tr");
+
+			row.innerHTML = `
+				<td>
+					<input type="text" name="ticketCategories[]" />
+				</td>
+				<td>
+					<input type="number" name="amounts[]" />
+				</td>
+			`;
+
+			table.appendChild(row);
+		}
+	</script>
+</body>
+
 
 <div>
     <a asp-page="./Index">Back to List</a>

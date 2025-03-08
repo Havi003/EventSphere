@@ -23,6 +23,8 @@ namespace Eventsphere.Areas.Identity.Pages.Form_Events
         [BindProperty]
         public FormEvent FormEvent { get; set; } = default!;
 
+        public List<TicketDetail> TicketDetails { get; set; } = new();
+
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -36,23 +38,54 @@ namespace Eventsphere.Areas.Identity.Pages.Form_Events
                 return NotFound();
             }
             FormEvent = formevent;
+
+            // Get ticket categories for this event
+            TicketDetails = await _context.TicketDetails
+                .Where(t => t.Id == id)
+                .ToListAsync();
+
             return Page();
         }
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more information, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public IActionResult OnPost()
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            _context.Attach(FormEvent).State = EntityState.Modified;
+            var existingEvent = _context.EventsFormed.Find(FormEvent.Id);
+
+            if (existingEvent == null)
+            {
+                return NotFound();
+            }
+
+            // Update fields
+            existingEvent.EventName = FormEvent.EventName;
+            existingEvent.Location = FormEvent.Location;
+            existingEvent.EventDate = FormEvent.EventDate;
+            existingEvent.StartTime = FormEvent.StartTime;
+            existingEvent.EndTime = FormEvent.EndTime;
+            existingEvent.About = FormEvent.About;
 
             try
             {
-                await _context.SaveChangesAsync();
+                // If a new image is uploaded, update it
+                if (FormEvent.PosterImage != null)
+                {
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        FormEvent.PosterImage.CopyTo(memoryStream);
+                        byte[] imageBytes = memoryStream.ToArray();
+                        existingEvent.Poster = Convert.ToBase64String(imageBytes);
+                    }
+                }
+
+                _context.Update(existingEvent);
+                _context.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -68,6 +101,7 @@ namespace Eventsphere.Areas.Identity.Pages.Form_Events
 
             return RedirectToPage("./Index");
         }
+
 
         private bool FormEventExists(int id)
         {
