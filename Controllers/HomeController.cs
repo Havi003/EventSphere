@@ -4,23 +4,25 @@ using Eventsphere.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.General;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
 
 namespace Eventsphere.Controllers
 {
-
     [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
         private readonly UserManager<EventsphereUser> _userManager;
+        private readonly EventsphereDBContext _context;
 
-        public HomeController(ILogger<HomeController> logger, UserManager<EventsphereUser> userManager)
+        public HomeController(ILogger<HomeController> logger, UserManager<EventsphereUser> userManager, EventsphereDBContext context)
         {
             _logger = logger;
-            this._userManager = userManager;
+            _userManager = userManager;
+            _context = context;
         }
-
 
         public async Task<IActionResult> Index()
         {
@@ -31,9 +33,10 @@ namespace Eventsphere.Controllers
                 ViewData["FirstName"] = user.FirstName;
             }
 
-            return View();
+            // Fetch events from the database
+            var events = await _context.EventsFormed.ToListAsync();
+            return View(events);
         }
-
 
         public IActionResult Privacy()
         {

@@ -4,16 +4,19 @@ using Eventsphere.Areas.Identity.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Eventsphere.Migrations
+namespace Eventsphere.Migrations.Eventsphere
 {
     [DbContext(typeof(EventsphereDBContext))]
-    partial class EventsphereDBContextModelSnapshot : ModelSnapshot
+    [Migration("20250307121303_FixTicketDetail")]
+    partial class FixTicketDetail
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -111,10 +114,6 @@ namespace Eventsphere.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<TimeSpan>("EndTime")
                         .HasColumnType("time");
 
@@ -138,9 +137,7 @@ namespace Eventsphere.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CreatedBy");
-
-                    b.ToTable("EventsFormed", (string)null);
+                    b.ToTable("EventsFormed");
                 });
 
             modelBuilder.Entity("Eventsphere.Models.HelpCenter", b =>
@@ -161,7 +158,7 @@ namespace Eventsphere.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("HelpCenter", (string)null);
+                    b.ToTable("HelpCenter");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -323,18 +320,7 @@ namespace Eventsphere.Migrations
 
                     b.HasIndex("FormEventId");
 
-                    b.ToTable("TicketDetails", (string)null);
-                });
-
-            modelBuilder.Entity("Eventsphere.Models.FormEvent", b =>
-                {
-                    b.HasOne("Eventsphere.Areas.Identity.Data.EventsphereUser", "Creator")
-                        .WithMany()
-                        .HasForeignKey("CreatedBy")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Creator");
+                    b.ToTable("TicketDetails");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

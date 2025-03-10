@@ -1,10 +1,16 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Eventsphere.Areas.Identity.Data;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Eventsphere.Models
 {
     public class FormEvent
     {
+        
+       
+
         [Key]
         public int Id { get; set; }
 
@@ -29,6 +35,14 @@ namespace Eventsphere.Models
         public TimeSpan EndTime { get; set; }
 
         public string About { get; set; }
+
+        // Track the user who created the event
+        [Required]
+        [BindNever]
+        public string CreatedBy { get; set; } // Store the UserId
+
+        [ForeignKey("CreatedBy")]
+        public virtual EventsphereUser Creator { get; set; } // Navigation property
 
         // Navigation property - An event can have multiple tickets
         public List<TicketDetail> TicketDetails { get; set; } = new List<TicketDetail>();
