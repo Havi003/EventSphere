@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Eventsphere.Migrations.Eventsphere
 {
     [DbContext(typeof(EventsphereDBContext))]
-    [Migration("20250304134222_PosterUpdated4")]
-    partial class PosterUpdated4
+    [Migration("20250307190857_CreatedByField")]
+    partial class CreatedByField
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -114,6 +114,10 @@ namespace Eventsphere.Migrations.Eventsphere
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<TimeSpan>("EndTime")
                         .HasColumnType("time");
 
@@ -136,6 +140,8 @@ namespace Eventsphere.Migrations.Eventsphere
                         .HasColumnType("time");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CreatedBy");
 
                     b.ToTable("EventsFormed");
                 });
@@ -298,6 +304,42 @@ namespace Eventsphere.Migrations.Eventsphere
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("TicketDetail", b =>
+                {
+                    b.Property<int>("TicketId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TicketId"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("FormEventId")
+                        .HasColumnType("int");
+
+                    b.HasKey("TicketId");
+
+                    b.HasIndex("FormEventId");
+
+                    b.ToTable("TicketDetails");
+                });
+
+            modelBuilder.Entity("Eventsphere.Models.FormEvent", b =>
+                {
+                    b.HasOne("Eventsphere.Areas.Identity.Data.EventsphereUser", "Creator")
+                        .WithMany()
+                        .HasForeignKey("CreatedBy")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Creator");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -347,6 +389,22 @@ namespace Eventsphere.Migrations.Eventsphere
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("TicketDetail", b =>
+                {
+                    b.HasOne("Eventsphere.Models.FormEvent", "Event")
+                        .WithMany("TicketDetails")
+                        .HasForeignKey("FormEventId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Event");
+                });
+
+            modelBuilder.Entity("Eventsphere.Models.FormEvent", b =>
+                {
+                    b.Navigation("TicketDetails");
                 });
 #pragma warning restore 612, 618
         }

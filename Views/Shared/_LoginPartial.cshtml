@@ -9,9 +9,10 @@
     {
         var user = await UserManager.GetUserAsync(User);
         <li class="nav-item">
-            <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+            <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Profile">
                 Hello @user?.FirstName!
             </a>
+
         </li>
     }
 </ul>

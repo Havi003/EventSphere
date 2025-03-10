@@ -1,0 +1,26 @@
+﻿@model List<Eventsphere.Models.FormEvent>
+
+@if (Model.Any())
+{
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach (var eventItem in Model)
+        {
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <img src="data:image/jpg;base64,@eventItem.Poster" class="card-img-top" alt="@eventItem.EventName">
+                    <div class="card-body">
+                        <h5 class="card-title">@eventItem.EventName</h5>
+                        <p class="card-text">
+                            <strong>Date:</strong> @eventItem.EventDate.ToString("dd MMMM, yyyy") <br>
+                            <strong>Location:</strong> @eventItem.Location
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <p class="text-muted">No events found.</p>
+}
