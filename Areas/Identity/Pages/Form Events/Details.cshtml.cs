@@ -43,7 +43,7 @@ namespace Eventsphere.Areas.Identity.Pages.Form_Events
 
             // Get ticket categories for this event
             TicketDetails = await _context.TicketDetails
-                .Where(t => t.Id == id)
+                .Where(t => t.TicketId== id)
                 .ToListAsync();
 
             return Page();
