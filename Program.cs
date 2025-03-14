@@ -12,7 +12,11 @@ namespace Eventsphere
             var builder = WebApplication.CreateBuilder(args);
             var connectionString = builder.Configuration.GetConnectionString("EventsphereDBContextConnection") ?? throw new InvalidOperationException("Connection string 'EventsphereDBContextConnection' not found.");
 
-            object value = builder.Services.AddDbContext<EventsphereDBContext>(options => options.UseSqlServer(connectionString));
+            object value = builder.Services.AddDbContext<EventsphereDBContext>(options => options.UseSqlServer(
+                builder.Configuration.GetConnectionString("EventsphereDBContextConnection"),
+                sqlOptions => sqlOptions.EnableRetryOnFailure()
+                )
+            );
 
             object value1 = builder.Services.AddDefaultIdentity<EventsphereUser>(options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<EventsphereDBContext>();
 

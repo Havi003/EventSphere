@@ -4,16 +4,19 @@ using Eventsphere.Areas.Identity.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Eventsphere.Migrations
+namespace Eventsphere.Migrations.Eventsphere
 {
     [DbContext(typeof(EventsphereDBContext))]
-    partial class EventsphereDBContextModelSnapshot : ModelSnapshot
+    [Migration("20250312182000_RecreateFk")]
+    partial class RecreateFk
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -31,7 +31,7 @@ namespace Eventsphere.Areas.Identity.Pages.Form_Events
                 return NotFound();
             }
 
-            var formevent = await _context.EventsFormed.FirstOrDefaultAsync(m => m.Id == id);
+            var formevent = await _context.EventsFormed.FirstOrDefaultAsync(m => m.FormEventId == id);
             if (formevent == null)
             {
                 return NotFound();
@@ -43,7 +43,7 @@ namespace Eventsphere.Areas.Identity.Pages.Form_Events
 
             // Get ticket categories for this event
             TicketDetails = await _context.TicketDetails
-                .Where(t => t.Id == id)
+                .Where(t => t.TicketId == id)
                 .ToListAsync();
 
             return Page();
