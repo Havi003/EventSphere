@@ -2,13 +2,18 @@
 }
 
 .btn-success {
-    background: linear-gradient(to right, #00BF63 35%,#FF3131 100% ) !important; /* Change to your desired color */
-    border-color: linear-gradient(to right, #00BF63 35%,#FF3131 100% )#ff5733 !important;
+    background: linear-gradient(to right, #00BF63 35%,#FF3131 100% );
+    border—radius: 8px;
+    border: 0;
+    width: 100%;
+    height: 35px;
 }
 
     .btn-success:hover {
-        background: linear-gradient(to right, #00BF63 35%,#FF3131 100% ) !important; /* Slightly darker shade on hover */
-        border-color: linear-gradient(to right, #00BF63 35%,#FF3131 100% ) !important;
+        background: white;
+        font-weight: bold;
+        border: 1px solid transparent;
+        border-image: linear-gradient(#00BF63, #FF3131) 1;
     }
 
 .container {

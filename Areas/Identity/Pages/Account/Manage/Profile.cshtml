@@ -26,6 +26,7 @@
 
 @section Styles {
     <link href="~/css/manage.css" rel="stylesheet" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.css" />
 }
 
 <div class="container mt-5 d-flex justify-content-center">
@@ -46,7 +47,9 @@
                 </div>
             </div>
             <div class="text-end mt-1">
-                <a asp-page="/Account/Manage/EditProfile" class="btn btn-success">Update Profile</a>
+                <a asp-page="/Account/Manage/EditProfile" >
+                    <button>UPDATE PROFILE</button>
+                </a>
             </div>
         </div>
 

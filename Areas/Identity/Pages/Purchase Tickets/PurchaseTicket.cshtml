@@ -1,0 +1,105 @@
+﻿@page
+@model Eventsphere.Areas.Identity.Pages.Form_Events.DetailsModel//Uses the Details model that is used to form events
+
+@{
+    ViewData["Title"] = "Purchase Tickets";
+}
+
+<link rel="stylesheet" href="~/css/PurchaseTickets.css" />
+
+<div class="main-container">
+
+    <h2>@Html.DisplayFor(model => model.FormEvent.EventName)</h2>
+
+    <div class="poster-container">
+
+        <img src="data:image/jpg;base64, @Model.FormEvent.Poster" style="width:500px" />
+
+    </div>
+
+    <div class="event-info">
+        <h4>Event Details:</h4>
+
+        <div class="row-container">
+
+            <div class="details-container">
+                <div class="logo-container">
+                    <img src="~/images/location-icon.svg" alt="location-icon" style="width: 20px;">
+                </div>
+                <div class="info-container">
+                    <p>@Html.DisplayFor(model => model.FormEvent.Location)</p>
+                </div>
+            </div>
+
+            <div class="details-container">
+                <div class="logo-container">
+                    <img src="~/images/calendar-icon.svg" alt="calendar-icon" style="width: 20px;">
+                </div>
+                <div class="info-container">
+                    <p>@Html.DisplayFor(model => model.FormEvent.EventDate)</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row-container">
+
+            <div class="details-container">
+                <p>STARTS AT: </p>
+                <p>@Html.DisplayFor(model => model.FormEvent.StartTime)</p>
+            </div>
+
+            <div class="details-container">
+                <p>ENDS AT: </p>
+                <p>@Html.DisplayFor(model => model.FormEvent.EndTime)</p>
+            </div>
+
+        </div>
+
+        <p>About @Html.DisplayFor(model => model.FormEvent.EventName)</p>
+        <P>@Html.DisplayFor(model => model.FormEvent.About)</P>
+
+        <p id="organiser">Organized by: EventSphere</p>
+
+        <div class="details-below">
+            <div class="ticket-container">
+                
+                <form method="post">
+
+                    <div class="radio-buttons-container">
+
+                        @if (Model.TicketDetails.Any())
+                        {
+                            <p>Select Ticket Type</p>
+                            
+                                @foreach (var ticket in Model.TicketDetails)
+                                {
+                                    <label>
+                                    <input type="radio" name="TicketType" value="@ticket.TicketId" required> 
+                                    <strong>@ticket.Category</strong> - Kshs. @ticket.Amount
+                                    </label>
+                                    <br>
+                                }
+                            <label>No. of tickets: </label>
+
+                            <br>
+                            <input type="number" name="TicketQuantity" class="input-tickets" min="1" required />
+
+                            <br>
+
+                            <button type="submit"> BOOK NOW</button>
+                            
+                        }
+                        else
+                        {
+                            <p>This is a <strong>FREE</strong> event.</p>
+                        }
+
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+</div>
