@@ -1,32 +1,40 @@
-﻿body {
+﻿/* Global Styles */
+body {
     font-family: "Montserrat", sans-serif !important;
-    height: auto;
-    min-height: 100vh;
+    height:100%;
     overflow-x: hidden; /* Prevents horizontal scrolling */
-    overflow-y: auto; /* Ensures vertical scrolling is allowed */
+    overflow-y: auto; /* Ensures vertical scrolling */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction:column;
 }
 
-/* Styling the Container */
+/* Main Container */
+.container {
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex:1;
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+
+/* Carousel Styling */
 .carousel-container {
     width: 100%;
-    height: auto !important;
     max-width: 1100px;
-    margin: auto;
-    margin-top: 30px;
+    margin: 30px auto;
     border-radius: 15px;
     position: relative;
-    transition: transform 0.3s ease-in-out; /* Smooth transition */
+    transition: transform 0.3s ease-in-out;
 }
 
     .carousel-container:hover {
-        transform: scale(1.05); /* Slight zoom in */
+        transform: scale(1.05); /* Slight zoom effect on hover */
     }
-
-.container {
-    min-height: 100vh;
-    padding-bottom: 50px; /* Ensures space for scrolling */
-}
-
 
 /* Carousel Image */
 .carousel-inner img {
@@ -42,7 +50,6 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    pointer-events: none; /* Ensures it does not block scrolling */
     text-align: center;
     padding: 20px;
     color: white;
@@ -50,6 +57,7 @@
     width: 100%;
 }
 
+/* Event Title */
 .event-title {
     font-size: 28px;
     font-weight: bold;
@@ -67,7 +75,6 @@
     max-width: 500px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
     margin: auto;
-    pointer-events: auto; /* Re-enable interactions inside the search bar */
 }
 
     .search-bar input {
@@ -81,14 +88,50 @@
     .search-bar button {
         width: auto;
         padding: 10px 15px;
-        background: green;
+        background: #00BF63;
         border-radius: 8px;
         border: none;
         color: white;
         cursor: pointer;
+        transition: background 0.3s ease-in-out;
     }
 
+        .search-bar button:hover {
+            background: #008F4C; /* Slightly darker green on hover */
+        }
 
+/* Button Styling */
+.btn {
+    background: linear-gradient(to right, #00BF63 35%, #FF3131 100%);
+    border-radius: 8px;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    font-weight: bold;
+    transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+}
 
+    .btn:hover {
+        transform: scale(1.05);
+        opacity: 0.9;
+    }
 
+/* Pagination Styling */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+    .pagination a {
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .pagination .btn {
+        margin: 0 5px;
+    }
+
+/* Fix Footer Spacing */
 

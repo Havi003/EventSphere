@@ -140,7 +140,7 @@ namespace Eventsphere.Migrations
 
                     b.HasIndex("CreatedBy");
 
-                    b.ToTable("EventsFormed", (string)null);
+                    b.ToTable("EventsFormed");
                 });
 
             modelBuilder.Entity("Eventsphere.Models.HelpCenter", b =>
@@ -161,7 +161,7 @@ namespace Eventsphere.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("HelpCenter", (string)null);
+                    b.ToTable("HelpCenter");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -323,7 +323,7 @@ namespace Eventsphere.Migrations
 
                     b.HasIndex("FormEventId");
 
-                    b.ToTable("TicketDetails", (string)null);
+                    b.ToTable("TicketDetails");
                 });
 
             modelBuilder.Entity("Eventsphere.Models.FormEvent", b =>
