@@ -26,6 +26,9 @@ namespace Eventsphere
                 options.SignIn.RequireConfirmedAccount = false;
                 options.Password.RequireUppercase = false;
                 options.User.RequireUniqueEmail = false;
+                
+                // Configure Two-Factor Authentication
+                options.Tokens.AuthenticatorTokenProvider = TokenOptions.DefaultAuthenticatorProvider;
 
             }).AddEntityFrameworkStores<EventsphereDBContext>();
 

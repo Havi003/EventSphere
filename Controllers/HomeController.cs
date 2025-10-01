@@ -65,5 +65,23 @@ namespace Eventsphere.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> SearchSuggestions(string term)
+        {
+            if (string.IsNullOrWhiteSpace(term))
+                return Json(new string[0]);
+
+            var suggestions = await _context.EventsFormed
+                .Where(e => e.EventName.StartsWith(term))
+                .OrderBy(e => e.EventName)
+                .Select(e => e.EventName)
+                .Distinct()
+                .Take(10)
+                .ToListAsync();
+
+            return Json(suggestions);
+        }
     }
 }

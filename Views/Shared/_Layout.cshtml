@@ -1,4 +1,4 @@
-﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Identity
 @using Eventsphere.Areas.Identity.Data
 
 @inject SignInManager<EventsphereUser> SignInManager
@@ -21,8 +21,59 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <style>
+        /* Override site.css and ensure flexbox layout works */
+        html {
+            height: 100% !important;
+            min-height: 100% !important;
+        }
+        
         body {
-        background-color: #f8f9fa;
+            background-color: #f8f9fa !important;
+            display: flex !important;
+            flex-direction: column !important;
+            min-height: 100vh !important;
+            height: auto !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            margin-bottom: 0 !important; /* Override site.css */
+        }
+        
+        header {
+            flex-shrink: 0;
+        }
+        
+        .main-content {
+            flex: 1 0 auto !important;
+            padding-bottom: 80px !important;
+            width: 100%;
+            display: block;
+        }
+        
+        .footer {
+            flex-shrink: 0 !important;
+            margin-top: auto !important;
+            width: 100%;
+            position: relative !important;
+            bottom: 0;
+        }
+        
+        /* Ensure container doesn't interfere */
+        .container {
+            margin-bottom: 0 !important;
+        }
+        
+        /* Active page indicator - Bold and zoom effect */
+        .nav-link.active,
+        .dashboard-link.active {
+            font-weight: 900 !important;
+            transform: scale(1.15) !important;
+            display: inline-block !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        .nav-link,
+        .dashboard-link {
+            transition: all 0.3s ease !important;
         }
     </style>
 	@RenderSection("Styles", required: false)
@@ -37,6 +88,12 @@
     var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
     var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
     var currentPage = ViewContext.RouteData.Values["page"]?.ToString();
+    var activePage = ViewData["ActivePage"]?.ToString();
+    var currentPath = Context.Request.Path.Value;
+    
+    // Check if we're on any account/manage page
+    bool isOnAccountPage = currentPath?.Contains("/Account/Manage/") == true;
+    bool isOnProfilePage = currentPath?.Contains("/Account/Manage/Profile") == true;
 
 
 <header>
@@ -52,29 +109,28 @@
                 <ul class="navbar-nav flex-grow-1 justify-content-center align-items-center gap-3">
 
                     <li class="nav-item">
-                        <a class="dashboard-link nav-link text-dark @(currentController == "Home" && currentAction == "Index" ? "fw-bold active" : "")" 
+                        <a class="dashboard-link nav-link text-dark @(currentController == "Home" && currentAction == "Index" ? "active" : "")" 
                            asp-area="Identity" asp-controller="Home" asp-action="Index">Home</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="dashboard-link nav-link text-dark @(currentPage == "/FormEvent" ? "fw-bold active" : "")" 
+                        <a class="dashboard-link nav-link text-dark @(currentPage == "/FormEvent" || currentPath?.Contains("/Form") == true ? "active" : "")" 
                            asp-area="Identity" asp-page="/Form Events/Create">Form Event</a>
                     </li>
 
-                            <li class="nav-item">
-                                <a asp-area="" asp-controller="Home" asp-action="Index" class="d-flex justify-content-center align-items-center overflow-hidden">
-                                    <img src="~/images/logo.png" height="100" alt="Logo">
-                                </a>
-                            </li>
-
-
-                    <!-- Move "Hello Havi!" here in place of "Purchase Ticket" -->
                     <li class="nav-item">
-                        <partial name="_LoginPartial.cshtml" />
+                        <a asp-area="" asp-controller="Home" asp-action="Index" class="d-flex justify-content-center align-items-center overflow-hidden">
+                            <img src="~/images/logo.png" height="100" alt="Logo">
+                        </a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="dashboard-link nav-link text-dark @(currentPage == "/HelpCenter" ? "fw-bold active" : "")" 
+                        <a class="dashboard-link nav-link text-dark @(isOnAccountPage ? "active" : "")" 
+                           asp-area="Identity" asp-page="/Account/Manage/Profile">Account</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="dashboard-link nav-link text-dark @(currentPage == "/HelpCenter" ? "active" : "")" 
                            asp-area="Identity" asp-page="/HelpCenter">Help Center</a>
                     </li>
 
@@ -97,14 +153,22 @@
 
 
     }
+    
     @* Body *@
-
-    <div class="container">
-        @RenderBody()
+    <div class="main-content">
+        @if (!Context.Request.Path.Value.Contains("Login") && !Context.Request.Path.Value.Contains("Register"))
+        {
+            <div class="container">
+                @RenderBody()
+            </div>
+        }
+        else
+        {
+            @RenderBody()
+        }
     </div>
 
     @* Footer *@
-
     @if (!Context.Request.Path.Value.Contains("Login") && !Context.Request.Path.Value.Contains("Register"))
     {
         <footer class="border-top footer text-muted">

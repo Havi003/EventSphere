@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -102,7 +102,8 @@ namespace Eventsphere.Areas.Identity.Pages.Form_Events
             _context.TicketDetails.AddRange(ticketDetails);
             _context.SaveChanges();
 
-            return RedirectToPage("./Index");
+            // Redirect to homepage after successful event creation
+            return Redirect("/");
         }
     }
 }
