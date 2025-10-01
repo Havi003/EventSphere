@@ -45,8 +45,6 @@ namespace Eventsphere.Areas.Identity.Pages.Form_Events
                 return Page();
             }
 
-            List<TicketDetail> ticketDetails = new();
-
             byte[] bytes = null;
 
             if (eventData.PosterImage != null)
@@ -63,23 +61,24 @@ namespace Eventsphere.Areas.Identity.Pages.Form_Events
 
             _logger.LogInformation("User ID Retrieved: {UserId}", userId);
 
-            // **Assign the CreatedBy field to the current user's ID**
+            // Assign the CreatedBy field to the current user's ID
             eventData.CreatedBy = userId;
 
-            // **Save the event first to generate FormEventId**
             _context.EventsFormed.Add(eventData);
-            _context.SaveChanges();  // Ensures FormEventId is generated
+            _context.SaveChanges();
 
-            // **Now that eventData.FormEventId is set, create ticket details**
+            // Retrieve ticket categories and amounts
             var ticketCategories = Request.Form["ticketCategories[]"].ToArray();
             var amounts = Request.Form["amounts[]"].ToArray();
+
+            List<TicketDetail> ticketDetails = new();
 
             if (ticketCategories.Length == 0 || amounts.Length == 0)
             {
                 // No input provided → Store "FREE" ticket
                 ticketDetails.Add(new TicketDetail
                 {
-                    FormEventId = eventData.FormEventId, // Use the now-existing ID
+                    FormEventId = eventData.Id,
                     Category = "FREE",
                     Amount = 0
                 });
@@ -93,16 +92,15 @@ namespace Eventsphere.Areas.Identity.Pages.Form_Events
 
                     ticketDetails.Add(new TicketDetail
                     {
-                        FormEventId = eventData.FormEventId, // Use the now-existing ID
+                        FormEventId = eventData.Id,
                         Category = category,
                         Amount = amount
                     });
                 }
             }
 
-            // **Now add ticket details after ensuring FormEventId exists**
             _context.TicketDetails.AddRange(ticketDetails);
-            _context.SaveChanges();  // Save ticket details
+            _context.SaveChanges();
 
             // Redirect to homepage after successful event creation
             return Redirect("/");

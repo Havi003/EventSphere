@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Eventsphere.Controllers
@@ -24,7 +25,8 @@ namespace Eventsphere.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        [ResponseCache(Duration = 60, Location = ResponseCacheLocation.Client)]
+        public async Task<IActionResult> Index(int pageNumber = 1, int pageSize = 3)
         {
             var user = await _userManager.GetUserAsync(User);
             if (user != null)
@@ -33,10 +35,25 @@ namespace Eventsphere.Controllers
                 ViewData["FirstName"] = user.FirstName;
             }
 
-            // Fetch events from the database
-            var events = await _context.EventsFormed.ToListAsync();
+            // Fetch paginated events
+            var events = await _context.EventsFormed
+                .AsNoTracking()
+                
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            var totalEvents = await _context.EventsFormed.CountAsync();
+            var totalPages = (int)Math.Ceiling(totalEvents / (double)pageSize);
+
+            ViewData["CurrentPage"] = pageNumber;
+            ViewData["TotalPages"] = totalPages;
+
+            _logger.LogInformation($"Total Events: {totalEvents}, Page {pageNumber}/{totalPages}, Fetched {events.Count} events");
+
             return View(events);
         }
+
 
         public IActionResult Privacy()
         {
@@ -47,6 +64,24 @@ namespace Eventsphere.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> SearchSuggestions(string term)
+        {
+            if (string.IsNullOrWhiteSpace(term))
+                return Json(new string[0]);
+
+            var suggestions = await _context.EventsFormed
+                .Where(e => e.EventName.StartsWith(term))
+                .OrderBy(e => e.EventName)
+                .Select(e => e.EventName)
+                .Distinct()
+                .Take(10)
+                .ToListAsync();
+
+            return Json(suggestions);
         }
     }
 }

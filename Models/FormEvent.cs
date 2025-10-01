@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Eventsphere.Areas.Identity.Data;
 using Microsoft.AspNetCore.Identity;
@@ -8,8 +8,11 @@ namespace Eventsphere.Models
 {
     public class FormEvent
     {
+        
+       
+
         [Key]
-        public int FormEventId { get; set; }
+        public int Id { get; set; }
 
         [Required]
         public string EventName { get; set; }

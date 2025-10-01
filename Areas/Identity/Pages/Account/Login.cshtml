@@ -1,13 +1,11 @@
+
 ﻿@page
 @model LoginModel
 @{
     ViewData["Title"] = "Log in";
     Layout = "~/Areas/Identity/Pages/_EventsLayout.cshtml";
 }
-
-<link rel="stylesheet" href="~/css/site.css" />
-
-<h2><strong>Welcome Back to the SPHERE of amazing EVENTS!</strong></h2>
+<h2>Welcome Back to the AMAZING sphere of Events!</h2>
 
 <form method="post">
     <div asp-validation-summary="All" class="text-danger"></div> <!-- Show validation errors -->
@@ -24,7 +22,7 @@
         <span asp-validation-for="Input.Password" class="text-danger"></span>
     </div>
 
-    <button type="submit" class="w-100">LOGIN</button>
+    <button type="submit" class="btn btn-primary w-100">LOGIN</button>
 
     <p class="mt-3">
         New Here? <br/>

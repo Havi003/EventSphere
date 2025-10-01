@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -29,7 +29,7 @@ namespace Eventsphere.Areas.Identity.Pages.Form_Events
                 return NotFound();
             }
 
-            var formevent = await _context.EventsFormed.FirstOrDefaultAsync(m => m.FormEventId == id);
+            var formevent = await _context.EventsFormed.FirstOrDefaultAsync(m => m.Id == id);
 
             if (formevent == null)
             {

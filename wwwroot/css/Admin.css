@@ -1,0 +1,14 @@
+﻿body {
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+}
+
+.table {
+    width: 100%;
+    border: 1px solid #ddd;
+}
