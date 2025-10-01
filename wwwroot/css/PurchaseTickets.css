@@ -1,0 +1,83 @@
+﻿.main-container {
+    background: #FFF7D9;
+    padding: 20px 50px 20px 50px;
+    border-radius: 12px;
+    margin-bottom: 120px;
+}
+
+h2 {
+    text-align: center;
+}
+
+.event-info {
+    background: linear-gradient(to bottom, #FFF7D9, #6AD3F3);
+    padding: 10px;
+}
+
+.details-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+}
+
+    .details-container img {
+        margin-right: 5px;
+    }
+
+.info-container{
+    margin-top: 15px;
+}
+
+.row-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: -20px;
+}
+
+.ticket-container {
+    background: #FFF7D9;
+    border-radius: 12px;
+    padding: 10px;
+    border: 1px solid transparent;
+    border-image: linear-gradient(#00BF63, #FF3131) 1;
+    width: 300px;
+}
+
+.radio-buttons-container {
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+
+.input-tickets {
+    margin-bottom: 20px;
+    height: 25px;
+    border-radius: 8px;
+    padding: 5px;
+    border: 0;
+    width: 98%;
+}
+
+#organiser {
+    text-align: center;
+}
+
+button {
+    background: linear-gradient(to right, #00BF63 35%,#FF3131 100% );
+    border—radius: 8px;
+    border: 0;
+    width: 100%;
+    height: 35px;
+}
+
+    button:hover {
+        background: white;
+        font-weight: bold;
+        border: 1px solid transparent;
+        border-image: linear-gradient(#00BF63, #FF3131) 1;
+    }
+
+.details-below, .poster-container {
+    display: flex;
+    justify-content: center;
+}
