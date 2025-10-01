@@ -8,11 +8,8 @@ namespace Eventsphere.Models
 {
     public class FormEvent
     {
-        
-       
-
         [Key]
-        public int Id { get; set; }
+        public int FormEventId { get; set; }
 
         [Required]
         public string EventName { get; set; }

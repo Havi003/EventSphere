@@ -1,0 +1,66 @@
+﻿@page "{total}/{quantity}"
+@model Eventsphere.Areas.Identity.Pages.Purchase_Tickets.CheckoutModel
+
+@{
+    ViewData["Title"] = "Checkout";
+}
+
+<link rel="stylesheet" href="~/css/Checkout.css" />
+
+<div class="main-container">
+
+    <h4 class="checkout-text">CHECKOUT</h4>
+
+    <div class="checkout-info-container">
+        <div class="personal-info">
+            <p>Personal Information: </p>
+
+            <div class="row">
+                <div class="label-input-container">
+                    <label for="First name">First Name: </label><br>
+                    <input type="text" id="readonly" value="@Model.FirstName" readonly>
+                </div>
+                <div class="label-input-container">
+                    <label for="Last name">Last Name: </label><br>
+                    <input type="text" id="readonly" value="@Model.LastName" readonly>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="label-input-container">
+                    <label for="Email">Email: </label><br>
+                    <input type="email" id="readonly" value="@Model.Email" readonly>
+                </div>
+                <div class="label-input-container">
+                    <label for="Phone number">Enter Phone Number: </label><br>
+                    <input type="number" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="booking-summary-container">
+            <h4 class="booking-title">Booking Summary</h4>
+
+            <div class="title-info-container">
+                <div class="title-col">
+                    <label>Event Name: </label><br>
+                    <label>Booked Ticket Type: </label><br>
+                    <label>Ticket Price: </label><br>
+                    <label>Attendees: </label><br>
+                    <label>Total Amount: </label><br>
+                </div>
+                <div class="info-col">
+                    <span><strong>@Model.EventName</strong></span><br>
+                    <span><strong>@Model.TicketCategory</strong></span><br>
+                    <span><strong>KSH. @Model.TicketAmount</strong></span><br>
+                    <span><strong>@Model.TicketQuantity</strong></span><br>
+                    <span><strong>KSH. @Model.TotalAmount</strong></span><br>
+                </div>
+            </div>
+
+            <button>PURCHASE TICKET</button><br>
+            <i>*By clicking PURCHASE TICKET, a prompt will be sent to the phone in which the phone number was entered.</i>
+        </div>
+    </div>
+
+</div>

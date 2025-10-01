@@ -29,7 +29,7 @@ namespace Eventsphere.Areas.Identity.Pages.Form_Events
                 return NotFound();
             }
 
-            var formevent = await _context.EventsFormed.FirstOrDefaultAsync(m => m.Id == id);
+            var formevent = await _context.EventsFormed.FirstOrDefaultAsync(m => m.FormEventId == id);
 
             if (formevent == null)
             {

@@ -32,7 +32,7 @@ namespace Eventsphere.Areas.Identity.Pages.Form_Events
                 return NotFound();
             }
 
-            var formevent =  await _context.EventsFormed.FirstOrDefaultAsync(m => m.Id == id);
+            var formevent =  await _context.EventsFormed.FirstOrDefaultAsync(m => m.FormEventId == id);
             if (formevent == null)
             {
                 return NotFound();
@@ -56,7 +56,7 @@ namespace Eventsphere.Areas.Identity.Pages.Form_Events
                 return Page();
             }
 
-            var existingEvent = _context.EventsFormed.Find(FormEvent.Id);
+            var existingEvent = _context.EventsFormed.Find(FormEvent.FormEventId);
 
             if (existingEvent == null)
             {
@@ -89,7 +89,7 @@ namespace Eventsphere.Areas.Identity.Pages.Form_Events
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!FormEventExists(FormEvent.Id))
+                if (!FormEventExists(FormEvent.FormEventId))
                 {
                     return NotFound();
                 }
@@ -105,7 +105,7 @@ namespace Eventsphere.Areas.Identity.Pages.Form_Events
 
         private bool FormEventExists(int id)
         {
-            return _context.EventsFormed.Any(e => e.Id == id);
+            return _context.EventsFormed.Any(e => e.FormEventId == id);
         }
     }
 }
