@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Eventsphere.Migrations.Eventsphere
+namespace Eventsphere.Migrations
 {
     [DbContext(typeof(EventsphereDBContext))]
-    [Migration("20250312182044_RecreateFk2")]
-    partial class RecreateFk2
+    [Migration("20251003100200_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -38,7 +38,6 @@ namespace Eventsphere.Migrations.Eventsphere
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DisplayName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Email")
@@ -49,11 +48,9 @@ namespace Eventsphere.Migrations.Eventsphere
                         .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<bool>("LockoutEnabled")
@@ -104,11 +101,11 @@ namespace Eventsphere.Migrations.Eventsphere
 
             modelBuilder.Entity("Eventsphere.Models.FormEvent", b =>
                 {
-                    b.Property<int>("FormEventId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FormEventId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("About")
                         .IsRequired()
@@ -139,7 +136,7 @@ namespace Eventsphere.Migrations.Eventsphere
                     b.Property<TimeSpan>("StartTime")
                         .HasColumnType("time");
 
-                    b.HasKey("FormEventId");
+                    b.HasKey("Id");
 
                     b.HasIndex("CreatedBy");
 
