@@ -14,14 +14,14 @@ public class EventsphereUser : IdentityUser
 
     [PersonalData]
     [Column(TypeName = "nvarchar(100)")]
-    public string FirstName { get; set; }
+    public string? FirstName { get; set; }
 
     [PersonalData]
     [Column(TypeName = "nvarchar(100)")]
-    public string LastName { get; set; }
+    public string? LastName { get; set; }
 
     [PersonalData]
     [Column(TypeName = "nvarchar(100)")]
-    public string DisplayName { get; set; }
+    public string? DisplayName { get; set; }
 }
 

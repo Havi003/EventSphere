@@ -35,7 +35,6 @@ namespace Eventsphere.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DisplayName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Email")
@@ -46,11 +45,9 @@ namespace Eventsphere.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<bool>("LockoutEnabled")
@@ -101,11 +98,11 @@ namespace Eventsphere.Migrations
 
             modelBuilder.Entity("Eventsphere.Models.FormEvent", b =>
                 {
-                    b.Property<int>("FormEventId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FormEventId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("About")
                         .IsRequired()
@@ -136,7 +133,7 @@ namespace Eventsphere.Migrations
                     b.Property<TimeSpan>("StartTime")
                         .HasColumnType("time");
 
-                    b.HasKey("FormEventId");
+                    b.HasKey("Id");
 
                     b.HasIndex("CreatedBy");
 
